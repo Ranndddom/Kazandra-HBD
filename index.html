@@ -1,205 +1,164 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-  <link rel="website icon" href="/Pic1.jpg">
-      
-  <title>KazandraMolinar | Birthday</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Kazandra Molinar</title>
   <style>
-    *{
-      margin: 0px;
-      padding: 0px;
-      font-family: sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .home{
+
+    .Gift-Container {
+      background-image: url('/BG.jpeg'); 
+      height: 100dvh;
+      width: 100%;
+      background-size: cover;
       display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
+      z-index: 1;
     }
-    .Navbar{
-       background-image: linear-gradient(#F0A8D0, #F7B5CA, #FFC6C6, #FFEBD4);
-      height: 800px;
-      width:80%;
-     
+
+    /* The .Gift wrapper is now used for fading out both the text and image */
+    .Gift {
+      display: flex; 
+      flex-direction: column; 
+      margin-top: 40dvh;
+      align-items: center; 
+      opacity: 1; /* Initial state: fully visible */
+      transition: opacity 1s ease-in-out; /* Smooth transition for fading out */
     }
-    .logo{
-      font-size: 16px;
-      color: white;
-       font-family: sans-serif;
-       font-weight: bold;
-       padding-left:25px;
+
+    .Gift p {
+      font-size: 24px;
+      color: white; 
+      margin-bottom: 5px;
+      background: #D78FEE;
+      padding: 5px 15px;
+      border-radius: 30px;
+    }
+
+    .Gift img {
+      width: 300px;
+      animation: jiggle 1s infinite alternate;
+      cursor: pointer;
+      filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.5));
+      transition: all 0.3s ease;
     }
     
-     .img-container img{
-       width: 100%;
-        height:650px;
-        
-        
-     }
-     .text{
-       position:absolute;
-       padding-top: 200px;
-       padding-left: 140px;
-       font-size: 100px;
-       color: white;
-       font-weight: bold;
-     }
-     .text1{
-       position:absolute;
-       padding-top: 310px;
-       padding-left: 140px;
-       font-size: 30px;
-       color: white;
-       font-weight: bold;
-     }
-     .about{
-      margin: 40px 15px 0 20px;
-      font-size: 18px;
-      color: #F0A8D0;
-     }
-     .line{
-       width:5px;
-       height:68px;
-       background-image: linear-gradient(#FFC6C6, #F0A8D0);
-       margin-top: 38px;
-       margin-left: 25px;
-       border-radius: 5px;
-     }
-     .about-container{
-       display: flex;
-     }
-     .Gradient-Background{
-       background-image: linear-gradient(#F0A8D0, #FFC6C6);
-       width:100%;
-       height:100px;
-       margin-top: 70px;
-       margin-bottom: 0px;
-     }
-     .birthday{
-       font-size: 50px;
-       color: white;
-       font-weight: bold;
-       text-align: center;
-       padding-top: 20px;
-       padding-bottom: 20px;
-       
-     }
-     .content-container{
-       display: flex;
-       justify-content: center;
-       margin-left: 8%;
-       margin-top: 50px;
-     }
-     .content-text{
-       width: 100%;
-       margin-right: 10px;
-       font-size:30px;
-       padding-top: 50px;
-       color: #F0A8D0;
-       padding-right: 30px;
-     }
-     .content-img img{
-       width:80%;
-       border-radius: 5px;
-       box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+    .Gift img:hover {
+      transform: scale(0.95);
+      animation: none;
+    }
+    
+    /* 🎁 The Hidden State for the Letter Container */
+    .Letter-container {
+      background: rgba(253, 207, 250, 0.5);
+      width: 100vw;
+      height: 100dvh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10; 
       
-     }
-       .line1 {
-         width: 10px;
-         height: 390px;
-         background-image: linear-gradient(#FFC6C6, #F0A8D0);
-         margin-top: 53px;
-         margin-right: 20px;
-         border-radius: 5px;
-       }
-       
-         .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-      gap: 20px;
-      padding: 10px;
-      margin: 20px 20px 20px 20px;
-  }
-  
-  .photo-grid img {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover; /* Crop images to fit */
-      border-radius: 5px;
-      
-  }
-  .photo-grid img:hover{
-    transform: scale(0.95);
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
-  }
+      /* Start hidden and transparent */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0; /* Invisible initially */
+      pointer-events: none; /* Ignore clicks when invisible */
+      transition: opacity 1s ease-in-out; /* Smooth transition for fading in */
+
+      color: white;
+      font-size: 30px;
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    /* 💌 The Visible State for the Letter Container (Added by JavaScript) */
+    .Letter-container.visible {
+        opacity: 1; /* Fade into view */
+        pointer-events: all; /* Allow clicks when visible */
+    }
+    
+    .letter {
+      background: white;
+      color: black;
+      font-size: 15px;
+      width: 50%;
+      padding: 20px;
+      border-radius: 15px;
+      font-family: sans-serif;
+      line-height: 1.6;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      width: 90%; 
+      max-width: 600px; 
+      font-size: clamp(14px, 3vw, 16px);
+    }
+    
+    .letter p strong {
+        font-size: 1.2em;
+        display: block;
+        margin-bottom: 15px;
+        color: #D78FEE;
+    }
+
+    @keyframes jiggle {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      25% { transform: translate(-1px, 0px) rotate(-1deg); }
+      50% { transform: translate(1px, -1px) rotate(1deg); }
+      75% { transform: translate(-1px, 1px) rotate(-1deg); }
+      100% { transform: translate(1px, -2px) rotate(0deg); }
+    }
   </style>
 </head>
-
 <body>
-  <section class="Intro">
-  <div class="home">
-  <div class="Navbar">
-      <p class="logo" style="padding-top: 25px;">Kazandra</p>
-      <p class="logo" style="color:#FFEBD4;">Molinar</p>
-      <p class="text">Kazandra Molinar</p>
-      <p class="text1">Just Turned 19!</p>
-  </div>
-  <div class="img-container">
-    <img src="/Pic1.jpg" alt="">
-    <div class="about-container">
-    <div class="line"></div>
-    <p class="about">This is kazandra, a 19 year old, currently a college 
-    student studying <br>  BS in Medical Labarotory Science. she is a passionate 
-    and motivated woman who aims to be successful in the future. </p>
-    </div>
-  </div>
-  </div>
-  </section>
-  
-  <section class="Info">
-    <div class="Gradient-Background">
-      <p class="birthday">Its Kazandra's Birthday! </p>
-    </div>
-    <div class="content-container">
-      <div class="line1"></div>
-      <div class="content-text">
-        <p>In the morning of October 23, 2005, a beautiful baby girl was born. Her name was Kazandra Nicole M. Molinar. She had beautiful black eyes, and a sweet smile.
-          <br><br>
-          Kazandra is now a wonderful young woman. She is intelligent, kind, and compassionate. She has a passion for Sleeping. I am so proud of the woman she has become.
-          Happy birthday, Ate Kazandra! I hope you have a wonderful day.
-
-</p>
-      </div>
-      <div class="content-img">
-        <img src="/FB_IMG_1729670806810.jpg" alt="">
+  <div class="Main">
+    <div class="Gift-Container">
+      <div class="Gift" id="Gift-box">
+        <p>OPEN</p>
+        <img onclick="OpenLetter()" src="/Gift.png" alt="Gift Box">
       </div>
     </div>
-  </section>
-  
-      <section class="pictures" style="background-color: rgba(255, 182, 193, 0.2)">
-      <div class="Gradient-Background">
-        <p class="birthday">Core Memories</p>
+    <div class="Letter-container">
+      <div class="letter">
+        <p>
+          <strong>Happy 20th Birthday Ate</strong>
+        Sorry late na ako ako na kita na greet but i wish sana happy ka sa araw na ito at sana matupad lahat ng wishes mo. Ate I just wanna thanked you for always being there kahit wala ka sa tabi ko. ate thank you talaga sa lahat lahat. sana masarap ulam mo at lagi ka maging masaya always. goodluck the twenties mo sana mapuno ito ng masaya at meaningful naalala pero grabi 20 years old kana what the flip!?!????. I cant believe it at sa bandang huli sana talaga matupad lahat ng wish mo at laging maging masaya at lagi ding ngumiti wag laging nakasimangut.
+        </p>
       </div>
-        <div class="photo-grid">
-          <img src="/FB_IMG_1729670806810.jpg" alt="">
-          <img src="/FB_IMG_1729674231375.jpg" alt="">
-          <img src="/IMG_20241023_171203.jpg" alt="">
-          <img src="/IMG_20241023_171215.jpg" alt="">
-          <img src="/IMG_20241023_171226.jpg" alt="">
-          <img src="/IMG_20241023_171236.jpg" alt="">
-          <img src="/IMG_20241023_171246.jpg" alt="">
-          <img src="/IMG_20241023_171255.jpg" alt="">
-          <img src="/IMG_20241023_171255.jpg" alt="">
-          <img src="/Pic1.jpg" alt="">
-        </div>
-          <section class="Info">
-            <div class="Gradient-Background">
-              <p class="birthday">HAPPY BIRTHDAY ATE! </p>
-            </div>
-          </section>
+    </div>
+  </div>
+  <audio id="birthdaySong" src="/happy-birthday-334876.mp3" preload="auto"></audio>
+  <audio id="secondSong" src="/Standard recording 12 (1).mp3" preload="auto"></audio>
+  <script>
+   function OpenLetter() {
+     const giftBox = document.getElementById("Gift-box");
+     const letterContainer = document.querySelector(".Letter-container");
+     const song = document.getElementById("birthdaySong"); // Get the audio element
+     const song2 = document.getElementById("secondSong")
+     
+     // 1. Start the music immediately
+     song.play();
+     song.volume = 0.3;
+     song2.play();
+     song2.volume = 0.5;
+     
+     // 2. Fade out the Gift box
+     giftBox.style.opacity = '0';
+     
+     // 3. Wait for the gift to fade out (1 second) then fade in the letter
+     setTimeout(() => {
+       letterContainer.classList.add('visible');
+       giftBox.style.display = 'none';
+     }, 1000);
+   }
+  </script>
 </body>
-
 </html>
